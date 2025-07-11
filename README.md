@@ -1,3 +1,17 @@
+# BomberLua
+
+A Bomberman clone developed in Lua using the LÖVE2D framework.
+
+## Game Features
+
+- Grid-based gameplay with destructible and indestructible walls
+- Local multiplayer supporting 2-4 players
+- Classic bomb mechanics with explosions, chaining, and power-ups
+- Smooth player movement and animations
+- Power-up system (bomb range, quantity, and speed boosts)
+
+## Getting Started
+
 # LOVE VSCode Game Template
 A fully configured VSCode template for LOVE
 
