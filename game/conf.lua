@@ -9,6 +9,7 @@ end
 
 -- https://love2d.org/wiki/Config_Files
 function love.conf(t)
+	t.title = "BomberLua"
 	t.identity              = nil
 	t.appendidentity        = false
 	t.version               = "11.4"
@@ -22,8 +23,8 @@ function love.conf(t)
 
 	t.window.title          = "Untitled"
 	t.window.icon           = nil
-	t.window.width          = 800
-	t.window.height         = 600
+	t.window.width          = 15 * 64
+	t.window.height         = 13 * 64
 	t.window.borderless     = false
 	t.window.resizable      = false
 	t.window.minwidth       = 1
