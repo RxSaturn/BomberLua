@@ -177,8 +177,8 @@ function player:checkCornerTurn(map_manager, bomb_manager)
 		currentDirection = "up"
 	end
 
-	-- Usa o input system para verificar curvas
-	local cornerX, cornerY, cornerDir, progress = input_system.checkCornerTurn(
+	-- Verifica se pode fazer uma curva
+	local cornerX, cornerY, cornerDir = input_system.checkCornerTurn(
 		self.inputController,
 		self.gridX, self.gridY,
 		self.targetX, self.targetY,
@@ -187,22 +187,14 @@ function player:checkCornerTurn(map_manager, bomb_manager)
 		map_manager, bomb_manager
 	)
 
+	-- Se for possível fazer uma curva
 	if cornerX then
-		-- Em vez de teleportar, ajustamos a posição atual proporcionalmente
-		-- para simular uma curva suave
-		local targetPixelX, targetPixelY = grid.toPixel(self.targetX, self.targetY)
-
-		-- Avançamos para o centro da célula, mas não instantaneamente
-		-- Quanto mais próximo do centro, mais suave a curva
-		local centerFactor = math.min(1.0, progress * 1.5)
-		self.pixelX = self.pixelX + (targetPixelX - self.pixelX) * centerFactor
-		self.pixelY = self.pixelY + (targetPixelY - self.pixelY) * centerFactor
-
-		-- Atualizamos a posição na grade
+		-- Completa o movimento atual de forma suave
+		-- Note que apenas atualizamos as coordenadas de grid e target, sem "teleportar" os pixels
 		self.gridX = self.targetX
 		self.gridY = self.targetY
 
-		-- Inicia o novo movimento (curva)
+		-- Define o próximo alvo (curva)
 		self.targetX = cornerX
 		self.targetY = cornerY
 		self.direction = cornerDir

@@ -146,22 +146,19 @@ function bomb_manager:update(dt, map_manager, player_manager, powerup_manager)
 	end
 end
 
--- Desenha bombas e explosões
+-- Desenha todas as bombas e explosões
 function bomb_manager:draw()
-	-- Desenha as bombas
+	-- DEBUG - mostre quantas bombas e explosões estão ativas
+	print("Desenhando " .. #self.bombs .. " bombas e " .. #self.explosions .. " explosões")
+
+	-- Desenha todas as bombas
 	for _, bomb in ipairs(self.bombs) do
-		function bomb:draw()
-			local pixelX, pixelY = grid.toPixel(self.gridX, self.gridY)
-			visual_effects.drawBomb(pixelX, pixelY, grid.TILE_SIZE, self.timer, true)
-		end
+		bomb:draw()
 	end
 
-	-- Desenha as explosões
+	-- Desenha todas as explosões
 	for _, explosion in ipairs(self.explosions) do
-		function explosion:draw()
-			local pixelX, pixelY = grid.toPixel(self.gridX, self.gridY)
-			visual_effects.drawExplosion(pixelX, pixelY, grid.TILE_SIZE, self.type, self.timer)
-		end
+		explosion:draw()
 	end
 end
 

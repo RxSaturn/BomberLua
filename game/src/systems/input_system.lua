@@ -148,33 +148,27 @@ end
 -- Verifica se o jogador pode fazer uma curva automática
 function input_system.checkCornerTurn(controller, gridX, gridY, targetX, targetY, pixelX, pixelY, currentDirection,
 									  map_manager, bomb_manager)
+	-- 1. Calcular o progresso da movimentação atual
 	local grid = require("src.utils.grid")
-
-	-- Calcula o progresso do movimento atual (0.0 a 1.0)
 	local targetPixelX, targetPixelY = grid.toPixel(targetX, targetY)
-	local startPixelX, startPixelY = grid.toPixel(gridX, gridY)
-
-	local totalDistX = targetPixelX - startPixelX
-	local totalDistY = targetPixelY - startPixelY
-	local currentDistX = pixelX - startPixelX
-	local currentDistY = pixelY - startPixelY
-
 	local progress = 0
-	if math.abs(totalDistX) > 0 then
-		progress = math.abs(currentDistX / totalDistX)
-	elseif math.abs(totalDistY) > 0 then
-		progress = math.abs(currentDistY / totalDistY)
+
+	-- Calcular progresso baseado na distância já percorrida
+	if targetX ~= gridX then -- Movimento horizontal
+		progress = math.abs((pixelX - grid.toPixel(gridX, gridY)) / (grid.TILE_SIZE))
+	else                  -- Movimento vertical
+		progress = math.abs((pixelY - grid.toPixel(gridX, gridY)) / (grid.TILE_SIZE))
 	end
 
-	-- Se não estiver perto o suficiente do final do movimento, não faz curva
-	-- Modificado para usar um threshold mais baixo (0.5) para detectar curvas mais cedo
-	if progress < input_system.cornerThreshold then
-		return nil
+	-- 2. Só permitir curvas se o jogador já estiver próximo do final do movimento (80%)
+	-- Isso evita movimentos muito bruscos e mantém um movimento mais previsível
+	if progress < 0.8 then
+		return nil -- Ainda não está perto o suficiente para fazer a curva
 	end
 
-	-- Verifica se temos algum input perpendicular à direção atual
+	-- 3. Verificar se existe uma direção perpendicular pressionada
 	for _, input in ipairs(controller.inputQueue) do
-		-- Pula se for a mesma direção ou oposta
+		-- Ignorar comandos na mesma direção ou direção oposta
 		if input == currentDirection or
 			(input == "up" and currentDirection == "down") or
 			(input == "down" and currentDirection == "up") or
@@ -183,7 +177,7 @@ function input_system.checkCornerTurn(controller, gridX, gridY, targetX, targetY
 			goto continue
 		end
 
-		-- Testa se podemos fazer a curva
+		-- Verificar se é possível fazer a curva (célula adjacente está livre)
 		local nextX, nextY = targetX, targetY
 
 		if input == "up" then
@@ -196,11 +190,9 @@ function input_system.checkCornerTurn(controller, gridX, gridY, targetX, targetY
 			nextX = nextX + 1
 		end
 
-		-- Verifica se a curva é possível
+		-- Se a célula adjacente estiver disponível, permitir a curva
 		if map_manager:isEmpty(nextX, nextY) and not bomb_manager:hasBomb(nextX, nextY) then
-			-- Retorna as informações da curva e também o progresso atual
-			-- para permitir uma curva suave
-			return nextX, nextY, input, progress
+			return nextX, nextY, input, 1.0 -- Usando 1.0 como progresso completo
 		end
 
 		::continue::
