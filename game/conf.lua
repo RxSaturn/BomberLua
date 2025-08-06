@@ -9,7 +9,7 @@ end
 
 -- https://love2d.org/wiki/Config_Files
 function love.conf(t)
-	t.title = "BomberLua"
+	t.title                 = "BomberLua"
 	t.identity              = nil
 	t.appendidentity        = false
 	t.version               = "11.4"
