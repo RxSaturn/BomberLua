@@ -108,7 +108,7 @@ function input_system.getNextMove(controller, gridX, gridY, map_manager, bomb_ma
 	local nextX, nextY = gridX, gridY
 	local direction = nil
 
-	-- Tenta APENAS o input mais recente (mais restritivo)
+	-- Tenta APENAS o input mais recente
 	local input = controller.inputQueue[1]
 
 	local testX, testY = gridX, gridY

@@ -137,7 +137,8 @@ function player_manager:drawGameOverScreen()
 
 	love.graphics.setColor(1, 1, 1)
 	if self.winner then
-		love.graphics.printf("Jogador " .. self.winner.id .. " venceu!", 0, love.graphics.getHeight() / 2 - 20,
+		love.graphics.printf("Jogador " .. self.winner.id .. " venceu!", 0,
+			love.graphics.getHeight() / 2 - 20,
 			love.graphics.getWidth(), "center")
 	else
 		love.graphics.printf("Empate!", 0, love.graphics.getHeight() / 2 - 20,
