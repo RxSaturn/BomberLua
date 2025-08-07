@@ -20,7 +20,9 @@ end
 
 -- Adiciona um jogador ao jogo
 function player_manager:addPlayer(id)
-	if id > 4 then return nil end -- Máximo de 4 jogadores
+	if id > 4 then
+		return nil
+	end -- Máximo de 4 jogadores
 
 	-- Verifica se já existe jogador com esse ID
 	for _, p in ipairs(self.players) do

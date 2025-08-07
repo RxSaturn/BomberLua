@@ -95,16 +95,19 @@ function love.keypressed(key)
 	end
 end
 
--- Adiciona jogadores adicionais (para testes)
+-- Adiciona jogadores adicionais
 function love.keyreleased(key)
-	if key == "2" and #player_manager.players < 2 then
-		-- Adiciona o segundo jogador
+	if key == "2" and #player_manager.players <= 2 then
+		-- Adiciona Segundo jogador
 		player_manager:addPlayer(2)
 	elseif key == "3" and #player_manager.players < 3 then
-		-- Adiciona o terceiro jogador
+		-- Adiciona Segundo e Terceiro jogadores
+		player_manager:addPlayer(2)
 		player_manager:addPlayer(3)
 	elseif key == "4" and #player_manager.players < 4 then
-		-- Adiciona o quarto jogador
+		-- Adiciona Segundo, Terceiro e Quarto jogadores
+		player_manager:addPlayer(2)
+		player_manager:addPlayer(3)
 		player_manager:addPlayer(4)
 	end
 end

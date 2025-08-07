@@ -52,13 +52,11 @@ end
 
 -- Renderiza o efeito de iluminação
 function lighting.draw()
-	-- Essa é uma implementação básica que apenas desenha círculos de luz
-	-- Uma implementação mais avançada usaria shaders para combinar luzes
-
 	love.graphics.setBlendMode("add")
 
 	for _, light in ipairs(lighting.lights) do
-		love.graphics.setColor(light.color[1] * 0.5, light.color[2] * 0.5, light.color[3] * 0.5, light.color[4] * 0.5)
+		love.graphics.setColor(light.color[1] * 0.5, light.color[2] * 0.5,
+			light.color[3] * 0.5, light.color[4] * 0.5)
 
 		-- Gradiente de luz
 		for i = 10, 1, -1 do
