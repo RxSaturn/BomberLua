@@ -1066,13 +1066,6 @@ O código é estruturado para facilitar manutenção e extensão:
 - **Sons Ambientais**: Adicionar atmosfera ao jogo
 - **Feedback Auditivo**: Sons específicos para eventos importantes
 
-### 8.5 Multijogador Online
-
-- **Modo Online**: Suporte para jogos pela internet
-- **Matchmaking**: Sistema para encontrar oponentes
-- **Ranqueamento**: Sistema de classificação competitivo
-- **Estatísticas do Jogador**: Acompanhamento de desempenho
-
 ---
 
 ## Conclusão
